@@ -4,14 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Techo.Models.Models
+namespace Techo.Models.DataTransferObjects
 {
-    public class ActividadAlternativa
+    public class ActividadAlternativaDTO
     {
-        public int Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        public int ActividadId { get; set; }
-        public Actividad Actividad { get; set; }
     }
 }

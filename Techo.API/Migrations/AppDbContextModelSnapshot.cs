@@ -137,10 +137,10 @@ namespace Techo.API.Migrations
                     b.Property<string>("DecretoLegalizacion")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("DensidadHombres")
+                    b.Property<float?>("DensidadHombres")
                         .HasColumnType("real");
 
-                    b.Property<float>("DensidadMujeres")
+                    b.Property<float?>("DensidadMujeres")
                         .HasColumnType("real");
 
                     b.Property<bool>("Legalizado")

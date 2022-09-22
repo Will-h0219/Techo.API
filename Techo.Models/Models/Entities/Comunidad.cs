@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Techo.Models.Models
+namespace Techo.Models.Models.Entities
 {
     public class Comunidad
     {
@@ -16,8 +16,8 @@ namespace Techo.Models.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public bool Legalizado { get; set; }
         public string DecretoLegalizacion { get; set; }
-        public float DensidadMujeres{ get; set; }
-        public float DensidadHombres { get; set; }
+        public float? DensidadMujeres { get; set; }
+        public float? DensidadHombres { get; set; }
         public int ComunaId { get; set; }
         public Comuna Comuna { get; set; }
         public List<Actividad> ActividadesRegistradas { get; set; }

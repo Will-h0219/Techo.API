@@ -113,8 +113,8 @@ namespace Techo.API.Migrations
                     FechaJornada = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EsMesaTrabajo = table.Column<bool>(type: "bit", nullable: false),
                     Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VoluntarioId = table.Column<int>(type: "int", nullable: false),
-                    ComunidadId = table.Column<int>(type: "int", nullable: false)
+                    VoluntarioId = table.Column<int>(type: "int", nullable: true),
+                    ComunidadId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -124,13 +124,13 @@ namespace Techo.API.Migrations
                         column: x => x.ComunidadId,
                         principalTable: "Comunidad",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Actividad_Voluntario_VoluntarioId",
                         column: x => x.VoluntarioId,
                         principalTable: "Voluntario",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -150,6 +150,30 @@ namespace Techo.API.Migrations
                         name: "FK_ActividadAlternativa_Actividad_ActividadId",
                         column: x => x.ActividadId,
                         principalTable: "Actividad",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Asistencia",
+                columns: table => new
+                {
+                    ActividadId = table.Column<int>(type: "int", nullable: false),
+                    VoluntarioId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Asistencia", x => new { x.ActividadId, x.VoluntarioId });
+                    table.ForeignKey(
+                        name: "FK_Asistencia_Actividad_ActividadId",
+                        column: x => x.ActividadId,
+                        principalTable: "Actividad",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Asistencia_Voluntario_VoluntarioId",
+                        column: x => x.VoluntarioId,
+                        principalTable: "Voluntario",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -193,6 +217,11 @@ namespace Techo.API.Migrations
                 column: "ActividadId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Asistencia_VoluntarioId",
+                table: "Asistencia",
+                column: "VoluntarioId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comuna_CiudadId",
                 table: "Comuna",
                 column: "CiudadId");
@@ -217,6 +246,9 @@ namespace Techo.API.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ActividadAlternativa");
+
+            migrationBuilder.DropTable(
+                name: "Asistencia");
 
             migrationBuilder.DropTable(
                 name: "MesaTrabajo");

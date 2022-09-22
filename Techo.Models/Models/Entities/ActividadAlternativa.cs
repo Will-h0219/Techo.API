@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Techo.Models.Models
+namespace Techo.Models.Models.Entities
 {
-    public class Asistencia
+    public class ActividadAlternativa
     {
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
         public int ActividadId { get; set; }
         public Actividad Actividad { get; set; }
-
-        public int VoluntarioId { get; set; }
-        public Voluntario Voluntario { get; set; }
     }
 }

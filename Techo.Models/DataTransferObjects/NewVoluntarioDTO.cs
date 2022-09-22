@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Techo.Models.Models
+namespace Techo.Models.DataTransferObjects
 {
-    public class Voluntario
+    public class NewVoluntarioDTO
     {
-        public int Id { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(maximumLength: 50, ErrorMessage = "Se excedio la cantidad maxima de caracteres")]
         public string Nombres { get; set; }
@@ -28,12 +27,6 @@ namespace Techo.Models.Models
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(maximumLength: 45, ErrorMessage = "Se excedio la cantidad maxima de caracteres")]
         public string Estado { get; set; }
-
         public int RolId { get; set; }
-        public Rol Rol { get; set; }
-
-        public List<Actividad> ActividadesRegistradas { get; set; }
-
-        public List<Asistencia> Asistencia { get; set; }
     }
 }

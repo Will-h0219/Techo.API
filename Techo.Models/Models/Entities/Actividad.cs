@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Techo.Models.Models
+namespace Techo.Models.Models.Entities
 {
     public class Actividad
     {

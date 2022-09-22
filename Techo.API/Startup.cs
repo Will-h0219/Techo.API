@@ -11,13 +11,16 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Techo.API.Extensions;
 using Techo.Data.Context;
 
 namespace Techo.API
 {
     public class Startup
     {
+        private readonly string _origins = "myOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,8 +32,9 @@ namespace Techo.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
-
+            services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve
+            );
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Techo.API"))
             );
@@ -39,6 +43,16 @@ namespace Techo.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Techo.API", Version = "v1" });
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: _origins, x => 
+                {
+                    x.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+
+            services.RegisterDI();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +68,8 @@ namespace Techo.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(_origins);
 
             app.UseAuthorization();
 

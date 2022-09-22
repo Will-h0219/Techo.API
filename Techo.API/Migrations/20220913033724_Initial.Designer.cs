@@ -10,8 +10,8 @@ using Techo.Data.Context;
 namespace Techo.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220913030104_Asistancia")]
-    partial class Asistancia
+    [Migration("20220913033724_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

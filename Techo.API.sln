@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Techo.API", "Techo.API\Techo.API.csproj", "{0277E142-CAA6-4B37-821E-C587C593FCD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Techo.API", "Techo.API\Techo.API.csproj", "{0277E142-CAA6-4B37-821E-C587C593FCD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Techo.Models", "Techo.Models\Techo.Models.csproj", "{9A12781F-493B-4049-AE89-8708499BE5DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Techo.Models", "Techo.Models\Techo.Models.csproj", "{9A12781F-493B-4049-AE89-8708499BE5DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Techo.Data", "Techo.Data\Techo.Data.csproj", "{90855281-5B2A-43A9-9CEE-90B6BD26C1CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Techo.Data", "Techo.Data\Techo.Data.csproj", "{90855281-5B2A-43A9-9CEE-90B6BD26C1CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Techo.Core", "Techo.Core\Techo.Core.csproj", "{42D15C01-4060-4B1D-AA57-96E4D256A2F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Techo.Core.Contracts", "Techo.Core.Contracts\Techo.Core.Contracts.csproj", "{35A85E69-20B1-4457-A4D0-73D006FB6D5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{90855281-5B2A-43A9-9CEE-90B6BD26C1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90855281-5B2A-43A9-9CEE-90B6BD26C1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90855281-5B2A-43A9-9CEE-90B6BD26C1CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42D15C01-4060-4B1D-AA57-96E4D256A2F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42D15C01-4060-4B1D-AA57-96E4D256A2F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42D15C01-4060-4B1D-AA57-96E4D256A2F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42D15C01-4060-4B1D-AA57-96E4D256A2F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35A85E69-20B1-4457-A4D0-73D006FB6D5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35A85E69-20B1-4457-A4D0-73D006FB6D5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35A85E69-20B1-4457-A4D0-73D006FB6D5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35A85E69-20B1-4457-A4D0-73D006FB6D5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,8 +10,8 @@ using Techo.Data.Context;
 namespace Techo.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220913024753_Initial")]
-    partial class Initial
+    [Migration("20220913035131_update_comunidad_density_columns")]
+    partial class update_comunidad_density_columns
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,7 @@ namespace Techo.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ComunidadId")
+                    b.Property<int?>("ComunidadId")
                         .HasColumnType("int");
 
                     b.Property<bool>("EsMesaTrabajo")
@@ -41,7 +41,7 @@ namespace Techo.API.Migrations
                     b.Property<DateTime>("FechaJornada")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("VoluntarioId")
+                    b.Property<int?>("VoluntarioId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -74,6 +74,21 @@ namespace Techo.API.Migrations
                     b.HasIndex("ActividadId");
 
                     b.ToTable("ActividadAlternativa");
+                });
+
+            modelBuilder.Entity("Techo.Models.Models.Asistencia", b =>
+                {
+                    b.Property<int>("ActividadId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VoluntarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ActividadId", "VoluntarioId");
+
+                    b.HasIndex("VoluntarioId");
+
+                    b.ToTable("Asistencia");
                 });
 
             modelBuilder.Entity("Techo.Models.Models.Ciudad", b =>
@@ -124,10 +139,10 @@ namespace Techo.API.Migrations
                     b.Property<string>("DecretoLegalizacion")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("DensidadHombres")
+                    b.Property<float?>("DensidadHombres")
                         .HasColumnType("real");
 
-                    b.Property<float>("DensidadMujeres")
+                    b.Property<float?>("DensidadMujeres")
                         .HasColumnType("real");
 
                     b.Property<bool>("Legalizado")
@@ -243,15 +258,11 @@ namespace Techo.API.Migrations
                 {
                     b.HasOne("Techo.Models.Models.Comunidad", "Comunidad")
                         .WithMany("ActividadesRegistradas")
-                        .HasForeignKey("ComunidadId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ComunidadId");
 
                     b.HasOne("Techo.Models.Models.Voluntario", "Voluntario")
                         .WithMany("ActividadesRegistradas")
-                        .HasForeignKey("VoluntarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VoluntarioId");
 
                     b.Navigation("Comunidad");
 
@@ -267,6 +278,25 @@ namespace Techo.API.Migrations
                         .IsRequired();
 
                     b.Navigation("Actividad");
+                });
+
+            modelBuilder.Entity("Techo.Models.Models.Asistencia", b =>
+                {
+                    b.HasOne("Techo.Models.Models.Actividad", "Actividad")
+                        .WithMany("Asistencia")
+                        .HasForeignKey("ActividadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Techo.Models.Models.Voluntario", "Voluntario")
+                        .WithMany("Asistencia")
+                        .HasForeignKey("VoluntarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Actividad");
+
+                    b.Navigation("Voluntario");
                 });
 
             modelBuilder.Entity("Techo.Models.Models.Comuna", b =>
@@ -313,6 +343,11 @@ namespace Techo.API.Migrations
                     b.Navigation("Rol");
                 });
 
+            modelBuilder.Entity("Techo.Models.Models.Actividad", b =>
+                {
+                    b.Navigation("Asistencia");
+                });
+
             modelBuilder.Entity("Techo.Models.Models.Comunidad", b =>
                 {
                     b.Navigation("ActividadesRegistradas");
@@ -326,6 +361,8 @@ namespace Techo.API.Migrations
             modelBuilder.Entity("Techo.Models.Models.Voluntario", b =>
                 {
                     b.Navigation("ActividadesRegistradas");
+
+                    b.Navigation("Asistencia");
                 });
 #pragma warning restore 612, 618
         }
