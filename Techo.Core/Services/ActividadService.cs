@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Techo.Core.Contracts.Repositories;
 using Techo.Core.Contracts.Services;
 using Techo.Data.Repository.Contracts;
 using Techo.Models.DataTransferObjects;
+using Techo.Models.Models;
 using Techo.Models.Models.Entities;
 
 namespace Techo.Core.Services
@@ -14,12 +16,12 @@ namespace Techo.Core.Services
     public class ActividadService : IActividadService
     {
         private readonly IMapper mapper;
-        private readonly IRepository<Actividad> actividadRepository;
+        private readonly IActividadRepository actividadRepository;
         private readonly IRepository<MesaTrabajo> workbenchRepository;
         private readonly IRepository<ActividadAlternativa> altActivityRepository;
 
         public ActividadService(IMapper mapper,
-            IRepository<Actividad> actividadRepository,
+            IActividadRepository actividadRepository,
             IRepository<MesaTrabajo> workbenchRepository,
             IRepository<ActividadAlternativa> altActivityRepository)
         {
@@ -49,7 +51,7 @@ namespace Techo.Core.Services
             return "Actividad agregada";
         }
 
-        public void CreateWorkbenchActivity(MesaTrabajoDTO mesaTrabajo, int actividadId)
+        public void CreateWorkbenchActivity(NewMesaTrabajoDTO mesaTrabajo, int actividadId)
         {
             var workbench = mapper.Map<MesaTrabajo>(mesaTrabajo);
 
@@ -59,7 +61,7 @@ namespace Techo.Core.Services
             workbenchRepository.Save();
         }
 
-        public void CreateAlternativeActivity(ActividadAlternativaDTO actividadAlternativa, int actividadId)
+        public void CreateAlternativeActivity(NewActividadAlternativaDTO actividadAlternativa, int actividadId)
         {
             var altActivity = mapper.Map<ActividadAlternativa>(actividadAlternativa);
 
@@ -67,6 +69,19 @@ namespace Techo.Core.Services
 
             altActivityRepository.Add(altActivity);
             altActivityRepository.Save();
+        }
+
+        public PagedList<ActividadDTO> GetActivities(PagingDTO parameters)
+        {
+            var data = actividadRepository.GetActivities(parameters);
+
+            if (data.Count < 1) { return new PagedList<ActividadDTO>(new List<ActividadDTO>(), 0, 0, 0); }
+
+            var total = actividadRepository.Count();
+
+            var items = mapper.Map<IList<Actividad>, List<ActividadDTO>>(data);
+
+            return new PagedList<ActividadDTO>(items, total, parameters.PageNumber, parameters.PageSize);
         }
     }
 }

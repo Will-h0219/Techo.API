@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Techo.Core.Contracts.Repositories;
 using Techo.Core.Contracts.Services;
 using Techo.Models.DataTransferObjects;
+using Techo.Models.Models;
 using Techo.Models.Models.Entities;
 
 namespace Techo.Core.Services
@@ -37,9 +38,17 @@ namespace Techo.Core.Services
             voluntarioRepo.Save();
         }
 
-        public IEnumerable<Voluntario> GetVolunteers()
+        public PagedList<VoluntarioDTO> GetVolunteers(PagingDTO parameters)
         {
-            return voluntarioRepo.Get();
+            var data = voluntarioRepo.GetVolunteers(parameters);
+
+            if (data.Count < 1) { return new PagedList<VoluntarioDTO>(new List<VoluntarioDTO>(), 0, 0, 0); }
+            
+            var total = voluntarioRepo.Count();
+
+            var items = mapper.Map<IList<Voluntario>, List<VoluntarioDTO>>(data);
+
+            return new PagedList<VoluntarioDTO>(items, total, parameters.PageNumber, parameters.PageSize);
         }
     }
 }

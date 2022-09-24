@@ -7,27 +7,23 @@ using System.Threading.Tasks;
 using Techo.Core.Contracts.Repositories;
 using Techo.Data.Context;
 using Techo.Data.Repository;
-using Techo.Data.Repository.Contracts;
 using Techo.Models.DataTransferObjects;
 using Techo.Models.Models.Entities;
 
 namespace Techo.Core.Repositories
 {
-    public class VoluntarioRepository : Repository<Voluntario>, IVoluntarioRepository
+    public class ActividadRepository : Repository<Actividad>, IActividadRepository
     {
-        public VoluntarioRepository(AppDbContext context) : base(context)
+        public ActividadRepository(AppDbContext context) : base(context)
         {
         }
 
-        public bool ExistsByEmail(string email)
+        public IList<Actividad> GetActivities(PagingDTO parameters)
         {
-            return _dbSet.Any(x => x.Email == email);
-        }
-
-        public IList<Voluntario> GetVolunteers(PagingDTO parameters)
-        {
-            var result = _dbSet.OrderBy(v => v.Nombres)
-                               .Include(v => v.Rol)
+            var result = _dbSet.OrderBy(a => a.FechaJornada)
+                               .Include(a => a.Voluntario)
+                               .Include(a => a.Comunidad)
+                               .Include(a => a.Asistencia)
                                .Skip((parameters.PageNumber - 1) * parameters.PageSize)
                                .Take(parameters.PageSize)
                                .ToList();

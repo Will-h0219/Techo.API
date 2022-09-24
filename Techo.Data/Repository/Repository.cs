@@ -30,6 +30,11 @@ namespace Techo.Data.Repository
             return _dbSet.Find(id);
         }
 
+        public int Count()
+        {
+            return _dbSet.Count();
+        }
+
         public void Add(TEntity data)
         {
             _dbSet.Add(data);

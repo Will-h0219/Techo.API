@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Techo.Models.DataTransferObjects
 {
-    public class ActividadAlternativaDTO
+    public class NewActividadAlternativaDTO
     {
         public string Nombre { get; set; }
         public string Descripcion { get; set; }

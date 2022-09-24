@@ -21,8 +21,8 @@ namespace Techo.Models.DataTransferObjects
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ComunidadId { get; set; }
         public string Estado => EsMesaTrabajo ? CheckMesaTrabajo() : "No Aplica";
-        public MesaTrabajoDTO MesaTrabajo { get; set; }
-        public ActividadAlternativaDTO ActividadAlternativa { get; set; }
+        public NewMesaTrabajoDTO MesaTrabajo { get; set; }
+        public NewActividadAlternativaDTO ActividadAlternativa { get; set; }
         public IList<int> VoluntariosIds { get; set; }
 
         public string CheckMesaTrabajo()

@@ -25,12 +25,12 @@ namespace Techo.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get()
+        public IActionResult Get([FromQuery] PagingDTO parameters)
         {
             try
             {
-                var volunteerList = voluntarioService.GetVolunteers();
-                return Ok(new { voluntarios = volunteerList });
+                var volunteerList = voluntarioService.GetVolunteers(parameters);
+                return Ok(volunteerList);
             }
             catch (Exception)
             {
@@ -39,7 +39,7 @@ namespace Techo.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post(NewVoluntarioDTO newVoluntario)
+        public IActionResult Post(NewVoluntarioDTO newVoluntario)
         {
             try
             {

@@ -9,9 +9,8 @@ using Techo.Models.Models.Entities;
 
 namespace Techo.Core.Contracts.Repositories
 {
-    public interface IVoluntarioRepository : IRepository<Voluntario>
+    public interface IActividadRepository: IRepository<Actividad>
     {
-        bool ExistsByEmail(string email);
-        IList<Voluntario> GetVolunteers(PagingDTO parameters);
+        IList<Actividad> GetActivities(PagingDTO parameters);
     }
 }

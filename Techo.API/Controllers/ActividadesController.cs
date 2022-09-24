@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,6 +33,20 @@ namespace Techo.API.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetActivities([FromQuery]PagingDTO parameters)
+        {
+            try
+            {
+                var result = actividadService.GetActivities(parameters);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
             }
         }
     }
