@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Techo.Models.DataTransferObjects
 {
-    [JsonObject(IsReference = false)]
     public class ActividadDTO
     {
         public int Id { get; set; }

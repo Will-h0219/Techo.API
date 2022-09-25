@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Techo.Models.DataTransferObjects;
+using Techo.Models.DataTransferObjects.CataloguesDTO;
 using Techo.Models.Models.Entities;
 
 namespace Techo.Models.Mapper
@@ -24,6 +25,10 @@ namespace Techo.Models.Mapper
                 .ForMember(actividadDTO => actividadDTO.NombreVoluntario, opt => opt.MapFrom(a => a.Voluntario.Nombres))
                 .ForMember(actividadDTO => actividadDTO.NombreComunidad, opt => opt.MapFrom(a => a.Comunidad.Nombre))
                 .ForMember(actividadDTO => actividadDTO.Asistentes, opt => opt.MapFrom(a => a.Asistencia.Count));
+            CreateMap<Comunidad, ComunidadDTO>()
+                .ForMember(comunidadDTO => comunidadDTO.NombreComuna, opt => opt.MapFrom(c => c.Comuna.NombreComuna));
+            CreateMap<Rol, RolDTO>()
+                .ForMember(rolDTO => rolDTO.Nombre, opt => opt.MapFrom(r => r.NombreRol));
         }
 
         private List<Asistencia> MapAsistencia(NewActividadDTO newActividad, Actividad actividad)

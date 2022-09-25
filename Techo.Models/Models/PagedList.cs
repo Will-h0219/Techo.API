@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Techo.Models.Models
 {
-    [JsonObject(IsReference = false)]
     public class PagedList<T> where T : class
     {
         public int CurrentPage { get; set; }
@@ -16,7 +15,6 @@ namespace Techo.Models.Models
         public int TotalPages { get; set; }
         public bool HasPrevious => CurrentPage > 1;
         public bool HasNext => CurrentPage < TotalPages;
-        [JsonProperty(IsReference = false)]
         public List<T> Data { get; set; }
 
         public PagedList(List<T> items, int count, int pageNumber, int pageSize)
