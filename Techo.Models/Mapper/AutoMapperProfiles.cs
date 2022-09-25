@@ -29,6 +29,7 @@ namespace Techo.Models.Mapper
                 .ForMember(comunidadDTO => comunidadDTO.NombreComuna, opt => opt.MapFrom(c => c.Comuna.NombreComuna));
             CreateMap<Rol, RolDTO>()
                 .ForMember(rolDTO => rolDTO.Nombre, opt => opt.MapFrom(r => r.NombreRol));
+            CreateMap<Voluntario, VoluntarioCatalogueDTO>();
         }
 
         private List<Asistencia> MapAsistencia(NewActividadDTO newActividad, Actividad actividad)

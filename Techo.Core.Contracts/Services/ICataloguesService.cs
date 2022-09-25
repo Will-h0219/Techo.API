@@ -11,5 +11,6 @@ namespace Techo.Core.Contracts.Services
     {
         IList<ComunidadDTO> GetComunitties();
         IList<RolDTO> GetRoles();
+        IList<VoluntarioCatalogueDTO> GetVolunteers();
     }
 }

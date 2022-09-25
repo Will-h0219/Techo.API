@@ -17,14 +17,17 @@ namespace Techo.Core.Services
     {
         private readonly IRepository<Rol> rolRepository;
         private readonly IComunidadRepository comunidadRepository;
+        private readonly IVoluntarioRepository voluntarioRepository;
         private readonly IMapper mapper;
 
         public CataloguesService(IRepository<Rol> rolRepository,
             IComunidadRepository comunidadRepository,
+            IVoluntarioRepository voluntarioRepository,
             IMapper mapper)
         {
             this.rolRepository = rolRepository;
             this.comunidadRepository = comunidadRepository;
+            this.voluntarioRepository = voluntarioRepository;
             this.mapper = mapper;
         }
 
@@ -39,6 +42,13 @@ namespace Techo.Core.Services
         {
             var data = comunidadRepository.GetCommunities();
             var dataDTO = mapper.Map<IEnumerable<Comunidad>, IList<ComunidadDTO>>(data);
+            return dataDTO;
+        }
+
+        public IList<VoluntarioCatalogueDTO> GetVolunteers()
+        {
+            var data = voluntarioRepository.GetVolunteers();
+            var dataDTO = mapper.Map<IList<Voluntario>, IList<VoluntarioCatalogueDTO>>(data);
             return dataDTO;
         }
     }

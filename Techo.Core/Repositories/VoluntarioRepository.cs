@@ -33,5 +33,13 @@ namespace Techo.Core.Repositories
                                .ToList();
             return result;
         }
+
+        public IList<Voluntario> GetVolunteers()
+        {
+            var result = _dbSet.Where(v => v.Estado.ToUpper() == "ACTIVO")
+                               .OrderBy(v => v.Nombres)
+                               .ToList();
+            return result;
+        }
     }
 }

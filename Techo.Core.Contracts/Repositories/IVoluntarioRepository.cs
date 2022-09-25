@@ -13,5 +13,6 @@ namespace Techo.Core.Contracts.Repositories
     {
         bool ExistsByEmail(string email);
         IList<Voluntario> GetVolunteers(PagingDTO parameters);
+        IList<Voluntario> GetVolunteers();
     }
 }

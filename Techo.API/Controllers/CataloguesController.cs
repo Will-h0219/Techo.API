@@ -31,5 +31,11 @@ namespace Techo.API.Controllers
         {
             return cataloguesService.GetComunitties();
         }
+
+        [HttpGet("voluntarios")]
+        public IList<VoluntarioCatalogueDTO> GetVolunteers()
+        {
+            return cataloguesService.GetVolunteers();
+        }
     }
 }
