@@ -12,7 +12,7 @@ using Techo.Models.DataTransferObjects;
 namespace Techo.API.Controllers
 {
     [ApiController]
-    [Route("api/{rol}/actividades")]
+    [Route("api/actividades")]
     public class ActividadesController : ControllerBase
     {
         private readonly IActividadService actividadService;
@@ -36,8 +36,8 @@ namespace Techo.API.Controllers
             }
         }
 
-        [HttpGet("id:int")]
-        public IActionResult GetActivities([FromQuery]PagingDTO parameters, int id)
+        [HttpGet("volunteerId:int")]
+        public IActionResult GetActivities([FromQuery]PagingDTO parameters, int volunteerId)
         {
             try
             {
