@@ -37,16 +37,16 @@ namespace Techo.API.Controllers
         }
 
         [HttpGet("volunteerId:int")]
-        public IActionResult GetActivities([FromQuery]PagingDTO parameters, int volunteerId)
+        public IActionResult GetVolunteerActivities([FromQuery]PagingDTO parameters, int volunteerId)
         {
             try
             {
-                var result = actividadService.GetActivities(parameters);
+                var result = actividadService.GetVolunteerActivities(parameters, volunteerId);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
     }

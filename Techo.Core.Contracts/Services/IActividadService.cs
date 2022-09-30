@@ -13,5 +13,6 @@ namespace Techo.Core.Contracts.Services
     {
         string CreateActivity(NewActividadDTO newActivity);
         PagedList<ActividadDTO> GetActivities(PagingDTO parameters);
+        PagedList<ActividadDTO> GetVolunteerActivities(PagingDTO parameters, int volunteerId);
     }
 }

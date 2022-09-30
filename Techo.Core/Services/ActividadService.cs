@@ -17,16 +17,19 @@ namespace Techo.Core.Services
     {
         private readonly IMapper mapper;
         private readonly IActividadRepository actividadRepository;
+        private readonly IVoluntarioRepository voluntarioRepository;
         private readonly IRepository<MesaTrabajo> workbenchRepository;
         private readonly IRepository<ActividadAlternativa> altActivityRepository;
 
         public ActividadService(IMapper mapper,
             IActividadRepository actividadRepository,
+            IVoluntarioRepository voluntarioRepository,
             IRepository<MesaTrabajo> workbenchRepository,
             IRepository<ActividadAlternativa> altActivityRepository)
         {
             this.mapper = mapper;
             this.actividadRepository = actividadRepository;
+            this.voluntarioRepository = voluntarioRepository;
             this.workbenchRepository = workbenchRepository;
             this.altActivityRepository = altActivityRepository;
         }
@@ -78,6 +81,22 @@ namespace Techo.Core.Services
             if (data.Count < 1) { return new PagedList<ActividadDTO>(new List<ActividadDTO>(), 0, 0, 0); }
 
             var total = actividadRepository.Count();
+
+            var items = mapper.Map<IList<Actividad>, List<ActividadDTO>>(data);
+
+            return new PagedList<ActividadDTO>(items, total, parameters.PageNumber, parameters.PageSize);
+        }
+
+        public PagedList<ActividadDTO> GetVolunteerActivities(PagingDTO parameters, int volunteerId)
+        {
+            var volunteer = voluntarioRepository.Get(volunteerId);
+            if (volunteer == null) { throw new Exception("El voluntario consultado no existe."); }
+
+            var data = actividadRepository.GetVolunteerActivities(parameters, volunteerId);
+
+            if (data.Count < 1) { return new PagedList<ActividadDTO>(new List<ActividadDTO>(), 0, 0, 0); }
+
+            var total = actividadRepository.Get().Where(a => a.VoluntarioId == volunteerId).Count();
 
             var items = mapper.Map<IList<Actividad>, List<ActividadDTO>>(data);
 

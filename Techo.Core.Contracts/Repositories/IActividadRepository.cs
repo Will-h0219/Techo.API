@@ -12,5 +12,6 @@ namespace Techo.Core.Contracts.Repositories
     public interface IActividadRepository: IRepository<Actividad>
     {
         IList<Actividad> GetActivities(PagingDTO parameters);
+        IList<Actividad> GetVolunteerActivities(PagingDTO parameters, int volunteerId);
     }
 }
