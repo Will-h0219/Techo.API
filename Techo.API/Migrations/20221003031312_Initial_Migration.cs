@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Techo.API.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Initial_Migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -89,8 +89,8 @@ namespace Techo.API.Migrations
                     Sector = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Legalizado = table.Column<bool>(type: "bit", nullable: false),
                     DecretoLegalizacion = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DensidadMujeres = table.Column<float>(type: "real", nullable: false),
-                    DensidadHombres = table.Column<float>(type: "real", nullable: false),
+                    DensidadMujeres = table.Column<float>(type: "real", nullable: true),
+                    DensidadHombres = table.Column<float>(type: "real", nullable: true),
                     ComunaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

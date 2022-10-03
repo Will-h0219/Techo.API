@@ -17,5 +17,6 @@ namespace Techo.Models.DataTransferObjects
         public string Instagram { get; set; }
         public string Estado { get; set; }
         public string Rol { get; set; }
+        public string Comunidad { get; set; }
     }
 }

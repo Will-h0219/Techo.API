@@ -32,6 +32,9 @@ namespace Techo.Models.Models.Entities
         public int RolId { get; set; }
         public Rol Rol { get; set; }
 
+        public int ComunidadId { get; set; }
+        public Comunidad Comunidad { get; set; }
+
         public List<Actividad> ActividadesRegistradas { get; set; }
 
         public List<Asistencia> Asistencia { get; set; }

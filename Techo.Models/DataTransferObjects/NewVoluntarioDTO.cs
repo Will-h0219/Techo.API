@@ -28,5 +28,6 @@ namespace Techo.Models.DataTransferObjects
         [StringLength(maximumLength: 45, ErrorMessage = "Se excedio la cantidad maxima de caracteres")]
         public string Estado { get; set; }
         public int RolId { get; set; }
+        public int ComunidadId { get; set; }
     }
 }

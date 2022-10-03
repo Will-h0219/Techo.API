@@ -20,7 +20,8 @@ namespace Techo.Models.Mapper
             CreateMap<NewMesaTrabajoDTO, MesaTrabajo>();
             CreateMap<NewActividadAlternativaDTO, ActividadAlternativa>();
             CreateMap<Voluntario, VoluntarioDTO>()
-                .ForMember(voluntarioDTO => voluntarioDTO.Rol, opt => opt.MapFrom(v => v.Rol.NombreRol));
+                .ForMember(voluntarioDTO => voluntarioDTO.Rol, opt => opt.MapFrom(v => v.Rol.NombreRol))
+                .ForMember(voluntarioDTO => voluntarioDTO.Comunidad, opt => opt.MapFrom(v => v.Comunidad.Nombre));
             CreateMap<Actividad, ActividadDTO>()
                 .ForMember(actividadDTO => actividadDTO.NombreVoluntario, opt => opt.MapFrom(a => a.Voluntario.Nombres))
                 .ForMember(actividadDTO => actividadDTO.NombreComunidad, opt => opt.MapFrom(a => a.Comunidad.Nombre))
