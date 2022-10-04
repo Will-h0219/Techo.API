@@ -9,10 +9,6 @@ namespace Techo.Models.DataTransferObjects
 {
     public class NewActividadDTO
     {
-        // Verificar el orden de las acciones para guardar la actividad
-        // 1. Guardar la actividad y obtener su id (?)
-        // 2. Proceder a guardar la mesaTrabajo o la actividadAlt (?)
-        // ** verificar si se pueden realizar las acciones de SaveChanges() dos veces, una desde el repo custom y otra desde el repo base (?)
         public DateTime FechaJornada { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public bool EsMesaTrabajo { get; set; }
@@ -30,7 +26,7 @@ namespace Techo.Models.DataTransferObjects
             if (MesaTrabajo is null) { return "No Sistematizado"; }
 
             var hasNullString = MesaTrabajo.GetType().GetProperties()
-                                          .Any(prop => prop.GetValue(MesaTrabajo, null) == null);
+                                           .Any(prop => prop.GetValue(MesaTrabajo, null) == null);
                     
             if (hasNullString) return "No Sistematizado";
 

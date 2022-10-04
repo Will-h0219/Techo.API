@@ -56,5 +56,27 @@ namespace Techo.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("detalle")]
+        public IActionResult GetDetailedActivity([FromQuery] int actividadId, bool esMesaTrabajo)
+        {
+            try
+            {
+                if (esMesaTrabajo)
+                {
+                    var result = actividadService.GetMesaTrabajo(actividadId);
+                    return Ok(result);
+                }
+                else
+                {
+                    var result = actividadService.GetActividadAlternativa(actividadId);
+                    return Ok(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

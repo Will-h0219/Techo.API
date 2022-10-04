@@ -12,7 +12,9 @@ namespace Techo.Core.Contracts.Services
     public interface IActividadService
     {
         string CreateActivity(NewActividadDTO newActivity);
+        ActividadAlternativaDTO GetActividadAlternativa(int actividadId);
         PagedList<ActividadDTO> GetActivities(PagingDTO parameters);
+        MesaTrabajoDTO GetMesaTrabajo(int actividadId);
         PagedList<ActividadDTO> GetVolunteerActivities(PagingDTO parameters, int volunteerId);
     }
 }

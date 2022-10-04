@@ -31,6 +31,14 @@ namespace Techo.Models.Mapper
             CreateMap<Rol, RolDTO>()
                 .ForMember(rolDTO => rolDTO.Nombre, opt => opt.MapFrom(r => r.NombreRol));
             CreateMap<Voluntario, VoluntarioCatalogueDTO>();
+            CreateMap<MesaTrabajo, MesaTrabajoDTO>()
+                .ForMember(dest => dest.Generalidades, opt => opt.Ignore());
+            CreateMap<ActividadAlternativa, ActividadAlternativaDTO>()
+                .ForMember(dest => dest.Generalidades, opt => opt.Ignore());
+            CreateMap<Actividad, ActividadDetalladaDTO>()
+                .ForMember(dest => dest.NombreVoluntario, opt => opt.MapFrom(src => src.Voluntario.Nombres))
+                .ForMember(dest => dest.NombreComunidad, opt => opt.MapFrom(src => src.Comunidad.Nombre))
+                .ForMember(dest => dest.Asistentes, opt => opt.MapFrom(MapAsistentes));
         }
 
         private List<Asistencia> MapAsistencia(NewActividadDTO newActividad, Actividad actividad)
@@ -42,6 +50,20 @@ namespace Techo.Models.Mapper
             foreach (var voluntarioId in newActividad.VoluntariosIds)
             {
                 result.Add(new Asistencia() { VoluntarioId = voluntarioId });
+            }
+
+            return result;
+        }
+
+        private List<int> MapAsistentes(Actividad actividad, ActividadDetalladaDTO actividadDetallada)
+        {
+            var result = new List<int>();
+
+            if (actividad.Asistencia.Count == 0) return result;
+
+            foreach (var record in actividad.Asistencia)
+            {
+                result.Add(record.VoluntarioId);
             }
 
             return result;

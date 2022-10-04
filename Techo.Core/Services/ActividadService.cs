@@ -18,20 +18,20 @@ namespace Techo.Core.Services
         private readonly IMapper mapper;
         private readonly IActividadRepository actividadRepository;
         private readonly IVoluntarioRepository voluntarioRepository;
-        private readonly IRepository<MesaTrabajo> workbenchRepository;
-        private readonly IRepository<ActividadAlternativa> altActivityRepository;
+        private readonly IMesaTrabajoRepository mesaTrabajoRepository;
+        private readonly IActividadAlternativaRepository actividadAlternativaRepository;
 
         public ActividadService(IMapper mapper,
             IActividadRepository actividadRepository,
             IVoluntarioRepository voluntarioRepository,
-            IRepository<MesaTrabajo> workbenchRepository,
-            IRepository<ActividadAlternativa> altActivityRepository)
+            IMesaTrabajoRepository mesaTrabajoRepository,
+            IActividadAlternativaRepository actividadAlternativaRepository)
         {
             this.mapper = mapper;
             this.actividadRepository = actividadRepository;
             this.voluntarioRepository = voluntarioRepository;
-            this.workbenchRepository = workbenchRepository;
-            this.altActivityRepository = altActivityRepository;
+            this.mesaTrabajoRepository = mesaTrabajoRepository;
+            this.actividadAlternativaRepository = actividadAlternativaRepository;
         }
 
         public string CreateActivity(NewActividadDTO newActivity)
@@ -60,8 +60,8 @@ namespace Techo.Core.Services
 
             workbench.ActividadId = actividadId;
 
-            workbenchRepository.Add(workbench);
-            workbenchRepository.Save();
+            mesaTrabajoRepository.Add(workbench);
+            mesaTrabajoRepository.Save();
         }
 
         public void CreateAlternativeActivity(NewActividadAlternativaDTO actividadAlternativa, int actividadId)
@@ -70,8 +70,8 @@ namespace Techo.Core.Services
 
             altActivity.ActividadId = actividadId;
 
-            altActivityRepository.Add(altActivity);
-            altActivityRepository.Save();
+            actividadAlternativaRepository.Add(altActivity);
+            actividadAlternativaRepository.Save();
         }
 
         public PagedList<ActividadDTO> GetActivities(PagingDTO parameters)
@@ -90,6 +90,7 @@ namespace Techo.Core.Services
         public PagedList<ActividadDTO> GetVolunteerActivities(PagingDTO parameters, int volunteerId)
         {
             var volunteer = voluntarioRepository.Get(volunteerId);
+
             if (volunteer == null) { throw new Exception("El voluntario consultado no existe."); }
 
             var data = actividadRepository.GetVolunteerActivities(parameters, volunteerId);
@@ -101,6 +102,32 @@ namespace Techo.Core.Services
             var items = mapper.Map<IList<Actividad>, List<ActividadDTO>>(data);
 
             return new PagedList<ActividadDTO>(items, total, parameters.PageNumber, parameters.PageSize);
+        }
+
+        public MesaTrabajoDTO GetMesaTrabajo(int actividadId)
+        {
+            var mesaTrabajo = mesaTrabajoRepository.GetByActivityId(actividadId);
+
+            if (mesaTrabajo == null) { throw new Exception("La actividad consultada no existe."); }
+
+            var result = mapper.Map<MesaTrabajoDTO>(mesaTrabajo);
+            var generalidades = mapper.Map<ActividadDetalladaDTO>(mesaTrabajo.Actividad);
+            result.Generalidades = generalidades;
+
+            return result;
+        }
+
+        public ActividadAlternativaDTO GetActividadAlternativa(int actividadId)
+        {
+            var actividadAlternativa = actividadAlternativaRepository.GetByActividadId(actividadId);
+
+            if (actividadAlternativa == null) { throw new Exception("La actividad consultada no existe."); }
+
+            var result = mapper.Map<ActividadAlternativaDTO>(actividadAlternativa);
+            var generalidades = mapper.Map<ActividadDetalladaDTO>(actividadAlternativa.Actividad);
+            result.Generalidades = generalidades;
+
+            return result;
         }
     }
 }
