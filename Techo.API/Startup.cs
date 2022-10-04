@@ -69,6 +69,11 @@ namespace Techo.API
                     ClockSkew = TimeSpan.Zero
                 };
             });
+
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("esAdmin", policy => policy.RequireClaim("esAdmin"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

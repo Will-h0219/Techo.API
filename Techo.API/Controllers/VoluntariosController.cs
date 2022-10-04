@@ -42,6 +42,7 @@ namespace Techo.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "esAdmin")]
         public IActionResult Post(NewVoluntarioDTO newVoluntario)
         {
             try

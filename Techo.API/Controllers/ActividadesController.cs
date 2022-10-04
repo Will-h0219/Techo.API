@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Techo.Core.Contracts.Services;
 using Techo.Models.DataTransferObjects;
@@ -39,12 +40,15 @@ namespace Techo.API.Controllers
             }
         }
 
-        [HttpGet("volunteerId:int")]
-        public IActionResult GetVolunteerActivities([FromQuery]PagingDTO parameters, int volunteerId)
+        [HttpGet("{voluntario:int}")]
+        public IActionResult GetVolunteerActivities([FromQuery]PagingDTO parameters, int voluntario)
         {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var esAdmin = identity.Claims.Where(c => c.Type == "esAdmin").FirstOrDefault();
+            
             try
             {
-                var result = actividadService.GetVolunteerActivities(parameters, volunteerId);
+                var result = esAdmin != null ? actividadService.GetActivities(parameters) : actividadService.GetVolunteerActivities(parameters, voluntario);
                 return Ok(result);
             }
             catch (Exception ex)

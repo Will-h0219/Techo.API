@@ -57,9 +57,13 @@ namespace Techo.Core.Services
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, voluntario.Email),
-                new Claim(ClaimTypes.Role, voluntario.Rol.NombreRol)
+                new Claim(ClaimTypes.Role, voluntario.Rol.NombreRol.ToLower())
             };
-            
+
+            var adminRoles = configuration.GetSection("AdminRoles").Get<List<int>>();
+
+            if (adminRoles.Contains(voluntario.RolId)) claims.Add(new Claim("esAdmin", "1"));
+
             var token = new JwtSecurityToken(configuration["Jwt:Issuer"],
                 configuration["Jwt:Audience"],
                 claims,
