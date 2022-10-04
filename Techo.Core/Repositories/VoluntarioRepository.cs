@@ -43,5 +43,12 @@ namespace Techo.Core.Repositories
                                .ToList();
             return result;
         }
+
+        public Voluntario GetRegisteredVolunteer(string email, string password)
+        {
+            return _dbSet.Where(v => v.Email == email && v.Password == password)
+                         .Include(v => v.Rol)
+                         .FirstOrDefault();
+        }
     }
 }

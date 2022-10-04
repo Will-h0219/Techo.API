@@ -12,6 +12,7 @@ namespace Techo.Core.Contracts.Repositories
     public interface IVoluntarioRepository : IRepository<Voluntario>
     {
         bool ExistsByEmail(string email);
+        Voluntario GetRegisteredVolunteer(string email, string password);
         IList<Voluntario> GetVolunteers(PagingDTO parameters);
         IList<Voluntario> GetVolunteers();
     }
