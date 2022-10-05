@@ -12,6 +12,7 @@ using System.Web.Http;
 using Techo.Core.Contracts.Repositories;
 using Techo.Core.Contracts.Services;
 using Techo.Models.DataTransferObjects;
+using Techo.Models.Models;
 using Techo.Models.Models.Entities;
 
 namespace Techo.Core.Services
@@ -31,23 +32,32 @@ namespace Techo.Core.Services
         public LoginResponseDTO LoginVolunteer(UserCredentialsDTO userCredentials)
         {
             var voluntario = voluntarioRepository.GetRegisteredVolunteer(userCredentials.Email, userCredentials.Password);
+            var adminRoles = configuration.GetSection("AdminRoles").Get<List<int>>();
+            var resp = new LoginResponseDTO();
 
             if (voluntario == null)
             {
-                throw new Exception("Error en las credenciales");
+                resp.Status = 404;
+                resp.Message = "Error en las credenciales";
+                return resp;
             }
-
             var token = GenerateToken(voluntario);
 
-            var resp = new LoginResponseDTO
+            var result = new LoginResult
             {
                 Token = token,
                 NombreVoluntario = voluntario.Nombres,
-                RolVoluntario = voluntario.Rol.NombreRol
+                RolVoluntario = voluntario.Rol.NombreRol,
+                VoluntarioId = voluntario.Id,
+                Coordinador = adminRoles.Contains(voluntario.RolId),
+                ComunidadAsignada = voluntario.ComunidadId
             };
 
-            return resp;
+            resp.Status = 200;
+            resp.Message = "Ok";
+            resp.Result = result;
 
+            return resp;
         }
 
         private string GenerateToken(Voluntario voluntario)
