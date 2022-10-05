@@ -21,5 +21,6 @@ namespace Techo.Models.Models.Entities
         public int ComunaId { get; set; }
         public Comuna Comuna { get; set; }
         public List<Actividad> ActividadesRegistradas { get; set; }
+        public List<Voluntario> Voluntarios { get; set; }
     }
 }

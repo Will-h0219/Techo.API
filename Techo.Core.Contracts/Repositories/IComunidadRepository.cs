@@ -11,5 +11,7 @@ namespace Techo.Core.Contracts.Repositories
     public interface IComunidadRepository : IRepository<Comunidad>
     {
         IEnumerable<Comunidad> GetCommunities();
+        IEnumerable<Comunidad> GetCommunitiesWithVolunteers();
+        Comunidad GetCommunityWithVolunteers(int comunidadId);
     }
 }

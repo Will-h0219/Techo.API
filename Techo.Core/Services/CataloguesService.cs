@@ -51,5 +51,19 @@ namespace Techo.Core.Services
             var dataDTO = mapper.Map<IList<Voluntario>, IList<VoluntarioCatalogueDTO>>(data);
             return dataDTO;
         }
+
+        public IList<ComunidadVoluntariosDTO> GetAllCommunitiesWithVolunteers()
+        {
+            var data = comunidadRepository.GetCommunitiesWithVolunteers();
+            var dataDTO = mapper.Map<IEnumerable<Comunidad>, IList<ComunidadVoluntariosDTO>>(data);
+            return dataDTO;
+        }
+
+        public IList<ComunidadVoluntariosDTO> GetCommunityVolunteers(int comunidadId)
+        {
+            var data = comunidadRepository.GetCommunityWithVolunteers(comunidadId);
+            var dataDTO = mapper.Map<Comunidad, ComunidadVoluntariosDTO>(data);
+            return new List<ComunidadVoluntariosDTO>() { dataDTO };
+        }
     }
 }

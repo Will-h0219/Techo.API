@@ -37,5 +37,17 @@ namespace Techo.API.Controllers
         {
             return cataloguesService.GetVolunteers();
         }
+
+        [HttpGet("voluntariosPorComunidades")]
+        public IList<ComunidadVoluntariosDTO> GetCommunitiesVolunteers()
+        {
+            return cataloguesService.GetAllCommunitiesWithVolunteers();
+        }
+
+        [HttpGet("voluntariosPorComunidad")]
+        public IList<ComunidadVoluntariosDTO> GetCommunityVolunteers(int comunidadId)
+        {
+            return cataloguesService.GetCommunityVolunteers(comunidadId);
+        }
     }
 }
