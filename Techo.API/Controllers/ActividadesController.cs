@@ -40,7 +40,7 @@ namespace Techo.API.Controllers
             }
         }
 
-        [HttpGet("{voluntario:int}")]
+        [HttpGet("por-voluntario/{voluntario:int}")]
         public IActionResult GetVolunteerActivities([FromQuery]PagingDTO parameters, int voluntario)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
@@ -49,6 +49,23 @@ namespace Techo.API.Controllers
             try
             {
                 var result = esAdmin != null ? actividadService.GetActivities(parameters) : actividadService.GetVolunteerActivities(parameters, voluntario);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("por-comunidad/{comunidad:int}")]
+        public IActionResult GetCommunityActivities([FromQuery] PagingDTO parameters, int comunidad)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var esAdmin = identity.Claims.Where(c => c.Type == "esAdmin").FirstOrDefault();
+
+            try
+            {
+                var result = esAdmin != null ? actividadService.GetActivities(parameters) : actividadService.GetCommunityActivities(parameters, comunidad);
                 return Ok(result);
             }
             catch (Exception ex)

@@ -42,5 +42,18 @@ namespace Techo.Core.Repositories
                                .ToList();
             return result;
         }
+
+        public IList<Actividad> GetCommunityActivities(PagingDTO parameters, int communityId)
+        {
+            var result = _dbSet.Where(a => a.ComunidadId == communityId)
+                               .OrderBy(a => a.FechaJornada)
+                               .Include(a => a.Voluntario)
+                               .Include(a => a.Comunidad)
+                               .Include(a => a.Asistencia)
+                               .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                               .Take(parameters.PageSize)
+                               .ToList();
+            return result;
+        }
     }
 }

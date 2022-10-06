@@ -20,18 +20,21 @@ namespace Techo.Core.Services
         private readonly IVoluntarioRepository voluntarioRepository;
         private readonly IMesaTrabajoRepository mesaTrabajoRepository;
         private readonly IActividadAlternativaRepository actividadAlternativaRepository;
+        private readonly IComunidadRepository comunidadRepository;
 
         public ActividadService(IMapper mapper,
             IActividadRepository actividadRepository,
             IVoluntarioRepository voluntarioRepository,
             IMesaTrabajoRepository mesaTrabajoRepository,
-            IActividadAlternativaRepository actividadAlternativaRepository)
+            IActividadAlternativaRepository actividadAlternativaRepository,
+            IComunidadRepository comunidadRepository)
         {
             this.mapper = mapper;
             this.actividadRepository = actividadRepository;
             this.voluntarioRepository = voluntarioRepository;
             this.mesaTrabajoRepository = mesaTrabajoRepository;
             this.actividadAlternativaRepository = actividadAlternativaRepository;
+            this.comunidadRepository = comunidadRepository;
         }
 
         public string CreateActivity(NewActividadDTO newActivity)
@@ -98,6 +101,23 @@ namespace Techo.Core.Services
             if (data.Count < 1) { return new PagedList<ActividadDTO>(new List<ActividadDTO>(), 0, 0, 0); }
 
             var total = actividadRepository.Get().Where(a => a.VoluntarioId == volunteerId).Count();
+
+            var items = mapper.Map<IList<Actividad>, List<ActividadDTO>>(data);
+
+            return new PagedList<ActividadDTO>(items, total, parameters.PageNumber, parameters.PageSize);
+        }
+
+        public PagedList<ActividadDTO> GetCommunityActivities(PagingDTO parameters, int communityId)
+        {
+            var community = comunidadRepository.Get(communityId);
+
+            if (community == null) { throw new Exception("La comunidad consultada no existe."); }
+
+            var data = actividadRepository.GetCommunityActivities(parameters, communityId);
+
+            if (data.Count < 1) { return new PagedList<ActividadDTO>(new List<ActividadDTO>(), 0, 0, 0); }
+
+            var total = actividadRepository.Get().Where(a => a.ComunidadId == communityId).Count();
 
             var items = mapper.Map<IList<Actividad>, List<ActividadDTO>>(data);
 

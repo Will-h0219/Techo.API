@@ -14,6 +14,7 @@ namespace Techo.Core.Contracts.Services
         string CreateActivity(NewActividadDTO newActivity);
         ActividadAlternativaDTO GetActividadAlternativa(int actividadId);
         PagedList<ActividadDTO> GetActivities(PagingDTO parameters);
+        PagedList<ActividadDTO> GetCommunityActivities(PagingDTO parameters, int communityId);
         MesaTrabajoDTO GetMesaTrabajo(int actividadId);
         PagedList<ActividadDTO> GetVolunteerActivities(PagingDTO parameters, int volunteerId);
     }
