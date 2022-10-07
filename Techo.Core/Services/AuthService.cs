@@ -32,7 +32,6 @@ namespace Techo.Core.Services
         public LoginResponseDTO LoginVolunteer(UserCredentialsDTO userCredentials)
         {
             var voluntario = voluntarioRepository.GetRegisteredVolunteer(userCredentials.Email, userCredentials.Password);
-            var adminRoles = configuration.GetSection("AdminRoles").Get<List<int>>();
             var resp = new LoginResponseDTO();
 
             if (voluntario == null)
@@ -49,7 +48,7 @@ namespace Techo.Core.Services
                 NombreVoluntario = voluntario.Nombres,
                 RolVoluntario = voluntario.Rol.NombreRol,
                 VoluntarioId = voluntario.Id,
-                Coordinador = adminRoles.Contains(voluntario.RolId),
+                Coordinador = voluntario.CoordinatorProfile,
                 ComunidadAsignada = voluntario.ComunidadId
             };
 
@@ -70,9 +69,7 @@ namespace Techo.Core.Services
                 new Claim(ClaimTypes.Role, voluntario.Rol.NombreRol.ToLower())
             };
 
-            var adminRoles = configuration.GetSection("AdminRoles").Get<List<int>>();
-
-            if (adminRoles.Contains(voluntario.RolId)) claims.Add(new Claim("esAdmin", "1"));
+            if (voluntario.CoordinatorProfile) claims.Add(new Claim("esAdmin", "1"));
 
             var token = new JwtSecurityToken(configuration["Jwt:Issuer"],
                 configuration["Jwt:Audience"],

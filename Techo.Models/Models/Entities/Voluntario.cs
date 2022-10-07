@@ -28,6 +28,7 @@ namespace Techo.Models.Models.Entities
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(maximumLength: 45, ErrorMessage = "Se excedio la cantidad maxima de caracteres")]
         public string Estado { get; set; }
+        public bool CoordinatorProfile { get; set; }
 
         public int RolId { get; set; }
         public Rol Rol { get; set; }
