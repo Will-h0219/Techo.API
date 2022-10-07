@@ -95,5 +95,20 @@ namespace Techo.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete("{actividadId:int}")]
+        [Authorize(Policy = "esAdmin")]
+        public IActionResult DeleteActivity(int actividadId)
+        {
+            try
+            {
+                actividadService.DeleteActivity(actividadId);
+                return Ok("Actividad eliminada");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

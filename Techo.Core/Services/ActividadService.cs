@@ -149,5 +149,11 @@ namespace Techo.Core.Services
 
             return result;
         }
+
+        public void DeleteActivity(int actividadId)
+        {
+            actividadRepository.Delete(actividadId);
+            actividadRepository.Save();
+        }
     }
 }

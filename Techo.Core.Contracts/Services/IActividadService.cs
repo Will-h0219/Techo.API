@@ -12,6 +12,7 @@ namespace Techo.Core.Contracts.Services
     public interface IActividadService
     {
         string CreateActivity(NewActividadDTO newActivity);
+        void DeleteActivity(int actividadId);
         ActividadAlternativaDTO GetActividadAlternativa(int actividadId);
         PagedList<ActividadDTO> GetActivities(PagingDTO parameters);
         PagedList<ActividadDTO> GetCommunityActivities(PagingDTO parameters, int communityId);
