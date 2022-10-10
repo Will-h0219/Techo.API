@@ -15,6 +15,6 @@ namespace Techo.Models.DataTransferObjects
         public string Estado { get; set; }
         public string NombreVoluntario { get; set; }
         public string NombreComunidad { get; set; }
-        public IList<int> Asistentes { get; set; }
+        public IList<VoluntarioCatalogueDTO> Asistentes { get; set; }
     }
 }

@@ -19,11 +19,13 @@ namespace Techo.Core.Repositories
 
         public MesaTrabajo GetByActivityId(int activityId)
         {
-            var result = _dbSet.Where(x => x.ActividadId == activityId)
-                               .Include(x => x.Actividad)
-                               .ThenInclude(x => x.Asistencia)
-                               .ThenInclude(x => x.Voluntario)
-                               .ThenInclude(x => x.Comunidad)
+            var result = _dbSet.Where(mt => mt.ActividadId == activityId)
+                               .Include(mt => mt.Actividad)
+                                   .ThenInclude(act => act.Asistencia)
+                                   .ThenInclude(ast => ast.Voluntario)
+                               .Include(mt => mt.Actividad)
+                                   .ThenInclude(mt => mt.Voluntario)
+                                   .ThenInclude(v => v.Comunidad)
                                .FirstOrDefault();
             return result;
         }

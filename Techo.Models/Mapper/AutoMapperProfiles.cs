@@ -57,15 +57,19 @@ namespace Techo.Models.Mapper
             return result;
         }
 
-        private List<int> MapAsistentes(Actividad actividad, ActividadDetalladaDTO actividadDetallada)
+        private List<VoluntarioCatalogueDTO> MapAsistentes(Actividad actividad, ActividadDetalladaDTO actividadDetallada)
         {
-            var result = new List<int>();
+            var result = new List<VoluntarioCatalogueDTO>();
 
             if (actividad.Asistencia.Count == 0) return result;
 
             foreach (var record in actividad.Asistencia)
             {
-                result.Add(record.VoluntarioId);
+                result.Add(new VoluntarioCatalogueDTO()
+                {
+                    Id = record.VoluntarioId,
+                    Nombre = record.Voluntario.Nombres
+                });
             }
 
             return result;
@@ -79,7 +83,7 @@ namespace Techo.Models.Mapper
 
             foreach (var item in comunidad.Voluntarios)
             {
-                result.Add(new VoluntarioCatalogueDTO { Id = item.Id, Nombres = item.Nombres });
+                result.Add(new VoluntarioCatalogueDTO { Id = item.Id, Nombre = item.Nombres });
             }
 
             return result;

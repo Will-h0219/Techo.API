@@ -19,11 +19,13 @@ namespace Techo.Core.Repositories
 
         public ActividadAlternativa GetByActividadId(int actividadId)
         {
-            var result = _dbSet.Where(x => x.ActividadId == actividadId)
-                               .Include(x => x.Actividad)
-                               .ThenInclude(x => x.Asistencia)
-                               .ThenInclude(x => x.Voluntario)
-                               .ThenInclude(x => x.Comunidad)
+            var result = _dbSet.Where(aa => aa.ActividadId == actividadId)
+                               .Include(aa => aa.Actividad)
+                                   .ThenInclude(aa => aa.Asistencia)
+                                   .ThenInclude(ast => ast.Voluntario)
+                               .Include(aa => aa.Actividad)
+                                   .ThenInclude(aa => aa.Voluntario)
+                                   .ThenInclude(v => v.Comunidad)
                                .FirstOrDefault();
             return result;
         }
