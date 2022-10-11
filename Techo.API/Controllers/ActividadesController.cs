@@ -103,7 +103,7 @@ namespace Techo.API.Controllers
             try
             {
                 actividadService.DeleteActivity(actividadId);
-                return Ok("Actividad eliminada");
+                return Ok(new { result = "Actividad eliminada" });
             }
             catch (Exception ex)
             {

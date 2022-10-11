@@ -25,7 +25,8 @@ namespace Techo.Core.Repositories
                                    .ThenInclude(ast => ast.Voluntario)
                                .Include(aa => aa.Actividad)
                                    .ThenInclude(aa => aa.Voluntario)
-                                   .ThenInclude(v => v.Comunidad)
+                               .Include(aa => aa.Actividad)
+                                   .ThenInclude(act => act.Comunidad)
                                .FirstOrDefault();
             return result;
         }
