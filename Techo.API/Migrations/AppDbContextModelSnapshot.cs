@@ -39,6 +39,9 @@ namespace Techo.API.Migrations
                     b.Property<DateTime>("FechaJornada")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("HabitantesParticipantes")
+                        .HasColumnType("int");
+
                     b.Property<int?>("VoluntarioId")
                         .HasColumnType("int");
 
@@ -172,9 +175,6 @@ namespace Techo.API.Migrations
 
                     b.Property<string>("Compromisos")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("HabitantesParticipantes")
-                        .HasColumnType("int");
 
                     b.Property<string>("LinkActa")
                         .HasColumnType("nvarchar(max)");

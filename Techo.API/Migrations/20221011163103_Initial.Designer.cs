@@ -10,8 +10,8 @@ using Techo.Data.Context;
 namespace Techo.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221005165155_voluntarios_added_comunidad")]
-    partial class voluntarios_added_comunidad
+    [Migration("20221011163103_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,6 +40,9 @@ namespace Techo.API.Migrations
 
                     b.Property<DateTime>("FechaJornada")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("HabitantesParticipantes")
+                        .HasColumnType("int");
 
                     b.Property<int?>("VoluntarioId")
                         .HasColumnType("int");
@@ -175,9 +178,6 @@ namespace Techo.API.Migrations
                     b.Property<string>("Compromisos")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("HabitantesParticipantes")
-                        .HasColumnType("int");
-
                     b.Property<string>("LinkActa")
                         .HasColumnType("nvarchar(max)");
 
@@ -220,6 +220,9 @@ namespace Techo.API.Migrations
 
                     b.Property<int>("ComunidadId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("CoordinatorProfile")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Email")
                         .IsRequired()

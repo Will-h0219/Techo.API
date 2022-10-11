@@ -16,6 +16,8 @@ namespace Techo.Models.Models.Entities
         public bool EsMesaTrabajo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Estado { get; set; }
+        public int HabitantesParticipantes { get; set; }
+
 
         public int? VoluntarioId { get; set; }
         public Voluntario Voluntario { get; set; }
