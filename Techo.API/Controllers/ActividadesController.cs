@@ -110,5 +110,19 @@ namespace Techo.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut("{actividadId:int}/editar/{editId:int}")]
+        public IActionResult UpdateActivity([FromBody] NewActividadDTO data, int actividadId, int editId)
+        {
+            try
+            {
+                actividadService.UpdateActivity(data, actividadId, editId);
+                return Ok(new { result = "Actividad actualizada" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -155,5 +155,35 @@ namespace Techo.Core.Services
             actividadRepository.Delete(actividadId);
             actividadRepository.Save();
         }
+
+        public void UpdateActivity(NewActividadDTO data, int activityId, int editId)
+        {
+            if (data.VoluntariosIds == null) { throw new Exception("No se puede registrar una actividad sin voluntarios"); }
+
+            var targetActivity = actividadRepository.GetActivityWithVolunteers(activityId);
+            targetActivity = mapper.Map(data, targetActivity);
+
+            actividadRepository.Update(targetActivity);
+            actividadRepository.Save();
+
+            if (data.EsMesaTrabajo)
+            {
+                var updatedMesaTrabajo = mapper.Map<MesaTrabajo>(data.MesaTrabajo);
+                updatedMesaTrabajo.Id = editId;
+                updatedMesaTrabajo.ActividadId = activityId;
+
+                mesaTrabajoRepository.Update(updatedMesaTrabajo);
+                mesaTrabajoRepository.Save();
+            }
+            else
+            {
+                var updatedAlternativeActivity = mapper.Map<ActividadAlternativa>(data.ActividadAlternativa);
+                updatedAlternativeActivity.Id = editId;
+                updatedAlternativeActivity.ActividadId = activityId;
+
+                actividadAlternativaRepository.Update(updatedAlternativeActivity);
+                actividadAlternativaRepository.Save();
+            }
+        }
     }
 }

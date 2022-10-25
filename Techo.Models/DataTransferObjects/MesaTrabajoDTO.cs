@@ -12,7 +12,6 @@ namespace Techo.Models.DataTransferObjects
         public string TemasTratados { get; set; }
         public string Compromisos { get; set; }
         public string LinkActa { get; set; }
-        public int HabitantesParticipantes { get; set; }
         public ActividadDetalladaDTO Generalidades { get; set; }
     }
 }

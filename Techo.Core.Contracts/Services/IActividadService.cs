@@ -18,5 +18,6 @@ namespace Techo.Core.Contracts.Services
         PagedList<ActividadDTO> GetCommunityActivities(PagingDTO parameters, int communityId);
         MesaTrabajoDTO GetMesaTrabajo(int actividadId);
         PagedList<ActividadDTO> GetVolunteerActivities(PagingDTO parameters, int volunteerId);
+        void UpdateActivity(NewActividadDTO data, int activityId, int editId);
     }
 }
