@@ -15,13 +15,10 @@ namespace Techo.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService authService;
-        private readonly IHashService hashService;
 
-        public AuthController(IAuthService authService,
-            IHashService hashService)
+        public AuthController(IAuthService authService)
         {
             this.authService = authService;
-            this.hashService = hashService;
         }
 
         [HttpPost]
