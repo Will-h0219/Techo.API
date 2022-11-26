@@ -31,32 +31,38 @@ namespace Techo.Core.Services
 
         public LoginResponseDTO LoginVolunteer(UserCredentialsDTO userCredentials)
         {
-            var voluntario = voluntarioRepository.GetRegisteredVolunteer(userCredentials.Email, userCredentials.Password);
-            var resp = new LoginResponseDTO();
-
-            if (voluntario == null)
+            try
             {
-                resp.Status = 404;
-                resp.Message = "Error en las credenciales";
+                var voluntario = voluntarioRepository.GetRegisteredVolunteer(userCredentials.Email, userCredentials.Password);
+                
+                var resp = new LoginResponseDTO();
+
+                var token = GenerateToken(voluntario);
+
+                var result = new LoginResult
+                {
+                    Token = token,
+                    NombreVoluntario = voluntario.Nombres,
+                    RolVoluntario = voluntario.Rol.NombreRol,
+                    VoluntarioId = voluntario.Id,
+                    Coordinador = voluntario.CoordinatorProfile,
+                    ComunidadAsignada = voluntario.ComunidadId
+                };
+
+                resp.Status = 200;
+                resp.Message = "Ok";
+                resp.Result = result;
+
                 return resp;
             }
-            var token = GenerateToken(voluntario);
-
-            var result = new LoginResult
+            catch (Exception)
             {
-                Token = token,
-                NombreVoluntario = voluntario.Nombres,
-                RolVoluntario = voluntario.Rol.NombreRol,
-                VoluntarioId = voluntario.Id,
-                Coordinador = voluntario.CoordinatorProfile,
-                ComunidadAsignada = voluntario.ComunidadId
-            };
-
-            resp.Status = 200;
-            resp.Message = "Ok";
-            resp.Result = result;
-
-            return resp;
+                return new LoginResponseDTO()
+                {
+                    Status = 404,
+                    Message = "Error en las credenciales"
+                };
+            }
         }
 
         private string GenerateToken(Voluntario voluntario)

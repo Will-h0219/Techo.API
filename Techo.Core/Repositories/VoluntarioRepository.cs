@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Techo.Core.Contracts.Repositories;
 using Techo.Data.Context;
+using Techo.Data.Helpers;
 using Techo.Data.Repository;
 using Techo.Data.Repository.Contracts;
 using Techo.Models.DataTransferObjects;
@@ -46,9 +47,17 @@ namespace Techo.Core.Repositories
 
         public Voluntario GetRegisteredVolunteer(string email, string password)
         {
-            return _dbSet.Where(v => v.Email == email && v.Password == password)
-                         .Include(v => v.Rol)
-                         .FirstOrDefault();
+            var voluntario = _dbSet.Where(v => v.Email == email)
+                                   .Include(v => v.Rol)
+                                   .FirstOrDefault();
+
+            if (voluntario == null) throw new Exception();
+
+            var hashResult = HashHelper.Hash(password, voluntario.Salt);
+
+            if (hashResult.Hash != voluntario.Password) throw new Exception();
+
+            return voluntario;
         }
     }
 }

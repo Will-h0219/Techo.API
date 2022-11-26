@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Techo.Data.Context;
 
 namespace Techo.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221126165328_removesalt_Voluntario")]
+    partial class removesalt_Voluntario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -250,9 +252,6 @@ namespace Techo.API.Migrations
 
                     b.Property<int>("RolId")
                         .HasColumnType("int");
-
-                    b.Property<byte[]>("Salt")
-                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Techo.API.Controllers
 {
     [ApiController]
     [Route("api/voluntarios")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class VoluntariosController : ControllerBase
     {
         private readonly IVoluntarioService voluntarioService;
@@ -42,7 +43,7 @@ namespace Techo.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "esAdmin")]
+        //[Authorize(Policy = "esAdmin")]
         public IActionResult Post(NewVoluntarioDTO newVoluntario)
         {
             try

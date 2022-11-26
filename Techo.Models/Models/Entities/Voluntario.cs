@@ -22,6 +22,7 @@ namespace Techo.Models.Models.Entities
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(maximumLength: 250, ErrorMessage = "Se excedio la cantidad maxima de caracteres")]
         public string Password { get; set; }
+        public byte[] Salt { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public DateTime FechaIngreso { get; set; }
         public string Instagram { get; set; }

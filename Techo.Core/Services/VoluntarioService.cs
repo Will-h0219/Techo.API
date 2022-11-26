@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Techo.Core.Contracts.Repositories;
 using Techo.Core.Contracts.Services;
+using Techo.Data.Helpers;
 using Techo.Models.DataTransferObjects;
 using Techo.Models.Models;
 using Techo.Models.Models.Entities;
@@ -34,6 +35,9 @@ namespace Techo.Core.Services
             }
 
             var voluntario = mapper.Map<Voluntario>(newVoluntario);
+
+            voluntario = HashPassword(voluntario);
+
             voluntarioRepo.Add(voluntario);
             voluntarioRepo.Save();
         }
@@ -49,6 +53,14 @@ namespace Techo.Core.Services
             var items = mapper.Map<IList<Voluntario>, List<VoluntarioDTO>>(data);
 
             return new PagedList<VoluntarioDTO>(items, total, parameters.PageNumber, parameters.PageSize);
+        }
+
+        private static Voluntario HashPassword(Voluntario volunteer)
+        {
+            var hashResult = HashHelper.Hash(volunteer.Password);
+            volunteer.Password = hashResult.Hash;
+            volunteer.Salt = hashResult.Sal;
+            return volunteer;
         }
     }
 }

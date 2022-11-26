@@ -5,38 +5,37 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Techo.Core.Contracts.Services;
 using Techo.Models.Models;
 
-namespace Techo.Core.Services
+namespace Techo.Data.Helpers
 {
-    public class HashService : IHashService
+    public static class HashHelper
     {
-        public ResultadoHash Hash(string textoPlano)
+        public static ResultadoHash Hash(string planeText)
         {
-            var sal = new byte[16];
+            var salt = new byte[16];
             using (var random = RandomNumberGenerator.Create())
             {
-                random.GetBytes(sal);
+                random.GetBytes(salt);
             }
 
-            return Hash(textoPlano, sal);
+            return Hash(planeText, salt);
         }
 
-        public ResultadoHash Hash(string textoPlano, byte[] sal)
+        public static ResultadoHash Hash(string planeText, byte[] salt)
         {
-            var llaveDerivada = KeyDerivation.Pbkdf2(password: textoPlano,
-                salt: sal,
+            var derivedKey = KeyDerivation.Pbkdf2(password: planeText,
+                salt: salt,
                 prf: KeyDerivationPrf.HMACSHA1,
                 iterationCount: 10000,
                 numBytesRequested: 32);
 
-            var hash = Convert.ToBase64String(llaveDerivada);
+            var hash = Convert.ToBase64String(derivedKey);
 
             return new ResultadoHash()
             {
                 Hash = hash,
-                Sal = sal
+                Sal = salt
             };
         }
     }
