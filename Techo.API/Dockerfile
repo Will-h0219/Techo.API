@@ -3,27 +3,24 @@
 #Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
 #For more information, please see https://aka.ms/containercompat
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /src
+# Copy csproj and restore as distinct layers
 COPY ["Techo.API/Techo.API.csproj", "Techo.API/"]
 COPY ["Techo.Core.Contracts/Techo.Core.Contracts.csproj", "Techo.Core.Contracts/"]
 COPY ["Techo.Models/Techo.Models.csproj", "Techo.Models/"]
 COPY ["Techo.Data/Techo.Data.csproj", "Techo.Data/"]
 COPY ["Techo.Core/Techo.Core.csproj", "Techo.Core/"]
+COPY *.sln .
 RUN dotnet restore "Techo.API/Techo.API.csproj"
+
+# Copy everything else and build
 COPY . .
-WORKDIR "/src/Techo.API"
-RUN dotnet build "Techo.API.csproj" -c Release -o /app/build
+RUN dotnet publish -c Release -o build -no-restore
 
-FROM build AS publish
-RUN dotnet publish "Techo.API.csproj" -c Release -o /app/publish
-
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY -from=build-env /build .
+ENV ASPNETCORE_URL=http://*:8080
+EXPOSE 8080
 ENTRYPOINT ["dotnet", "Techo.API.dll"]
