@@ -49,7 +49,7 @@ namespace Techo.API
             {
                 options.AddPolicy(name: _origins, x => 
                 {
-                    x.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                    x.WithOrigins("http://localhost:4200", "https://techo-activities.netlify.app").AllowAnyHeader().AllowAnyMethod();
                 });
             });
 
