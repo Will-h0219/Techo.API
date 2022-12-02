@@ -19,6 +19,8 @@ namespace Techo.Models.Models.Entities
         public float? DensidadHombres { get; set; }
         public int ComunaId { get; set; }
         public Comuna Comuna { get; set; }
+        public int? ZonaId { get; set; }
+        public Zona Zona { get; set; }
         public List<Actividad> ActividadesRegistradas { get; set; }
         public List<Voluntario> Voluntarios { get; set; }
     }

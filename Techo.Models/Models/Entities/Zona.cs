@@ -12,5 +12,6 @@ namespace Techo.Models.Models.Entities
         public string Nombre { get; set; }
 
         public List<Voluntario> Coordinadores { get; set; }
+        public List<Comunidad> Comunidades { get; set; }
     }
 }
