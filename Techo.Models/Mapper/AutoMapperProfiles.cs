@@ -86,7 +86,7 @@ namespace Techo.Models.Mapper
 
             foreach (var item in comunidad.Voluntarios)
             {
-                result.Add(new VoluntarioCatalogueDTO { Id = item.Id, Nombre = item.Nombres });
+                result.Add(new VoluntarioCatalogueDTO { Id = item.Id, Nombre = item.Nombres, Estado = item.Estado.ToUpper() });
             }
 
             return result;
