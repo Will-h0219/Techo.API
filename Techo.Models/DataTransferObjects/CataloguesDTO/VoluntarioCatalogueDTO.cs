@@ -9,5 +9,6 @@ namespace Techo.Models.DataTransferObjects.CataloguesDTO
 {
     public class VoluntarioCatalogueDTO : CatalogueBase
     {
+        public string Estado { get; set; }
     }
 }

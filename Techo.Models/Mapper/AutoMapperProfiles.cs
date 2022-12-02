@@ -68,7 +68,8 @@ namespace Techo.Models.Mapper
                 result.Add(new VoluntarioCatalogueDTO()
                 {
                     Id = record.VoluntarioId,
-                    Nombre = record.Voluntario.Nombres
+                    Nombre = record.Voluntario.Nombres,
+                    Estado = record.Voluntario.Estado
                 });
             }
 

@@ -14,6 +14,7 @@ namespace Techo.Models.DataTransferObjects
         public string Celular { get; set; }
         public string Email { get; set; }
         public DateTime FechaIngreso { get; set; }
+        public DateTime? FechaSalida { get; set; }
         public string Instagram { get; set; }
         public string Estado { get; set; }
         public string Rol { get; set; }
