@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Techo.Models.DataTransferObjects.CataloguesDTO;
 
 namespace Techo.Models.DataTransferObjects
 {
@@ -19,5 +20,6 @@ namespace Techo.Models.DataTransferObjects
         public string Estado { get; set; }
         public string Rol { get; set; }
         public string Comunidad { get; set; }
+        public ZonaDTO Zona { get; set; }
     }
 }

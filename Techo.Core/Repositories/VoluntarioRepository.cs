@@ -30,6 +30,7 @@ namespace Techo.Core.Repositories
             var result = _dbSet.OrderBy(v => v.Nombres)
                                .Include(v => v.Rol)
                                .Include(v => v.Comunidad)
+                               .Include(v => v.Zona)
                                .Skip((parameters.PageNumber - 1) * parameters.PageSize)
                                .Take(parameters.PageSize)
                                .ToList();

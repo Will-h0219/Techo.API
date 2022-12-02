@@ -21,7 +21,8 @@ namespace Techo.Models.Mapper
             CreateMap<NewActividadAlternativaDTO, ActividadAlternativa>();
             CreateMap<Voluntario, VoluntarioDTO>()
                 .ForMember(voluntarioDTO => voluntarioDTO.Rol, opt => opt.MapFrom(v => v.Rol.NombreRol))
-                .ForMember(voluntarioDTO => voluntarioDTO.Comunidad, opt => opt.MapFrom(v => v.Comunidad.Nombre));
+                .ForMember(voluntarioDTO => voluntarioDTO.Comunidad, opt => opt.MapFrom(v => v.Comunidad.Nombre))
+                .ForMember(voluntarioDTO => voluntarioDTO.Zona, opt => opt.MapFrom(MapZona));
             CreateMap<Actividad, ActividadDTO>()
                 .ForMember(actividadDTO => actividadDTO.NombreVoluntario, opt => opt.MapFrom(a => a.Voluntario.Nombres))
                 .ForMember(actividadDTO => actividadDTO.NombreComunidad, opt => opt.MapFrom(a => a.Comunidad.Nombre))
@@ -86,6 +87,18 @@ namespace Techo.Models.Mapper
             {
                 result.Add(new VoluntarioCatalogueDTO { Id = item.Id, Nombre = item.Nombres });
             }
+
+            return result;
+        }
+
+        private ZonaDTO MapZona(Voluntario voluntario, VoluntarioDTO voluntarioDTO)
+        {
+            var result = new ZonaDTO();
+
+            if (voluntario.ZonaId == null) return result;
+
+            result.Id = voluntario.Zona.Id;
+            result.Nombre = voluntario.Zona.Nombre;
 
             return result;
         }

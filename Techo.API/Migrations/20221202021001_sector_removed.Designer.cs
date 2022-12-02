@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Techo.Data.Context;
 
 namespace Techo.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221202021001_sector_removed")]
+    partial class sector_removed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -254,33 +256,13 @@ namespace Techo.API.Migrations
                     b.Property<byte[]>("Salt")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int?>("ZonaId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ComunidadId");
 
                     b.HasIndex("RolId");
 
-                    b.HasIndex("ZonaId");
-
                     b.ToTable("Voluntario");
-                });
-
-            modelBuilder.Entity("Techo.Models.Models.Entities.Zona", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Zona");
                 });
 
             modelBuilder.Entity("Techo.Models.Models.Entities.Actividad", b =>
@@ -375,15 +357,9 @@ namespace Techo.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Techo.Models.Models.Entities.Zona", "Zona")
-                        .WithMany("Coordinadores")
-                        .HasForeignKey("ZonaId");
-
                     b.Navigation("Comunidad");
 
                     b.Navigation("Rol");
-
-                    b.Navigation("Zona");
                 });
 
             modelBuilder.Entity("Techo.Models.Models.Entities.Actividad", b =>
@@ -408,11 +384,6 @@ namespace Techo.API.Migrations
                     b.Navigation("ActividadesRegistradas");
 
                     b.Navigation("Asistencia");
-                });
-
-            modelBuilder.Entity("Techo.Models.Models.Entities.Zona", b =>
-                {
-                    b.Navigation("Coordinadores");
                 });
 #pragma warning restore 612, 618
         }

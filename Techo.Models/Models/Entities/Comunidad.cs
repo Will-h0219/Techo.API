@@ -12,7 +12,6 @@ namespace Techo.Models.Models.Entities
         public int Id { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Nombre { get; set; }
-        public string Sector { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public bool Legalizado { get; set; }
         public string DecretoLegalizacion { get; set; }

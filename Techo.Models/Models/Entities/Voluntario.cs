@@ -38,6 +38,9 @@ namespace Techo.Models.Models.Entities
         public int ComunidadId { get; set; }
         public Comunidad Comunidad { get; set; }
 
+        public int? ZonaId { get; set; }
+        public Zona Zona { get; set; }
+
         public List<Actividad> ActividadesRegistradas { get; set; }
 
         public List<Asistencia> Asistencia { get; set; }

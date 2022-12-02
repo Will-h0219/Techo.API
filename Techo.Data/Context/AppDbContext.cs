@@ -32,6 +32,7 @@ namespace Techo.Data.Context
         public DbSet<MesaTrabajo> MesaTrabajo { get; set; }
         public DbSet<ActividadAlternativa> ActividadAlternativa { get; set; }
         public DbSet<Asistencia> Asistencia { get; set; }
+        public DbSet<Zona> Zona { get; set; }
 
     }
 }
