@@ -23,6 +23,7 @@ namespace Techo.Models.DataTransferObjects
         public string Password { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public DateTime FechaIngreso { get; set; }
+        public DateTime? FechaSalida { get; set; }
         public string Instagram { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(maximumLength: 45, ErrorMessage = "Se excedio la cantidad maxima de caracteres")]
